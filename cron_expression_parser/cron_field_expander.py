@@ -1,12 +1,9 @@
-
-
 from cron_expression_parser.common.exceptions import InvalidCyclicRangeError
 
 
 class CronFieldExpander:
-
     """
-    A class to expand cron field expressions into their respective values 
+    A class to expand cron field expressions into their respective values
     At the moment, we only support expansions for wildcards, ranges, steps and lists.
     """
 
@@ -20,7 +17,6 @@ class CronFieldExpander:
         """
         self.min_value = min_value
         self.max_value = max_value
-            
 
     def expand(self, field: str):
         """
@@ -50,7 +46,6 @@ class CronFieldExpander:
                 return handler(field)
 
         return self._handle_literal(field)
-    
 
     def _handle_wildcard(self) -> list[int]:
         """
@@ -119,5 +114,7 @@ class CronFieldExpander:
         start, stop = map(int, field.split("-"))
 
         if start > stop:
-            raise InvalidCyclicRangeError(f"Invalid cyclic range {start}-{stop}. Cyclic ranges are currently not supported.")
+            raise InvalidCyclicRangeError(
+                f"Invalid cyclic range {start}-{stop}. Cyclic ranges are currently not supported."
+            )
         return list(range(start, stop + 1))

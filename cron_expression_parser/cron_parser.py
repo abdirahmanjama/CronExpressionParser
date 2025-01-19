@@ -20,10 +20,9 @@ class CronExpressionParser:
     """
     A class for parsing and expanding cron expressions.
 
-    This class takes a cron string, parses it into its individual components (minute, hour, day of month, etc.), 
+    This class takes a cron string, parses it into its individual components (minute, hour, day of month, etc.),
     and expands wildcard characters, ranges, lists, and steps. It also provides functionality to display the parsed cron.
     """
-
 
     def __init__(self, cron_string: str):
         """
@@ -44,7 +43,7 @@ class CronExpressionParser:
 
         Returns:
             dict[str, Any]: A dictionary containing the expanded cron components (minute, hour, day of month, etc.).
-        
+
         Raises:
             InvalidCronFormatError: If the cron string does not have exactly 6 components.
         """
@@ -69,7 +68,7 @@ class CronExpressionParser:
 
     def display_parsed_cron(self, parsed_cron: dict[str, Any]) -> None:
         """
-        Displays the parsed cron fields and their expanded values. 
+        Displays the parsed cron fields and their expanded values.
 
         Args:
             parsed_cron (dict[str, Any]): The dictionary containing the parsed cron fields.
@@ -82,15 +81,17 @@ class CronExpressionParser:
             else:
                 print(f"{field:<15} {values}")
 
-    def _expand_field(self, field: str, min_value: int, max_value: int) -> Union[list[int], Any, int]:
+    def _expand_field(
+        self, field: str, min_value: int, max_value: int
+    ) -> Union[list[int], Any, int]:
         """
-        Expands the cron field based on the provided min and max values. 
+        Expands the cron field based on the provided min and max values.
 
         Args:
             field (str): The expression to expand
             min_value (int): Theinimum value of this field
             max_value (int): The aximum value of this field
-        
+
         Returns:
             Union[list[int], Any, int]: The expanded cron field, which could be a list of integers or a single integer.
         """

@@ -1,19 +1,26 @@
 import pytest
-from cron_expression_parser.common.constants import COMMAND, DAY_OF_MONTH, DAY_OF_WEEK, MINUTE, HOUR, MONTH 
+from cron_expression_parser.common.constants import (
+    COMMAND,
+    DAY_OF_MONTH,
+    DAY_OF_WEEK,
+    MINUTE,
+    HOUR,
+    MONTH,
+)
 from cron_expression_parser.common.exceptions import InvalidCronFormatError
 from cron_expression_parser.cron_parser import CronExpressionParser
 
 
 def test_cron_expression_parser_valid_cron(yearly_cron_string):
     parser = CronExpressionParser(yearly_cron_string)
-    
+
     expected_result = {
         MINUTE: 0,
         HOUR: 0,
         MONTH: 1,
-        DAY_OF_MONTH: 1, 
-        DAY_OF_WEEK: [1,2,3,4,5,6,7],
-        COMMAND: 'test_command'
+        DAY_OF_MONTH: 1,
+        DAY_OF_WEEK: [1, 2, 3, 4, 5, 6, 7],
+        COMMAND: "test_command",
     }
 
     result = parser.parse()
@@ -26,7 +33,7 @@ def test_cron_expression_parser_raises_invalid_cron_format_error(invalid_cron_st
 
     with pytest.raises(InvalidCronFormatError):
         parser.parse()
-    
+
 
 def test_cron_expression_parser_displays_cron_tab(yearly_cron_string, capsys):
     parser = CronExpressionParser(yearly_cron_string)

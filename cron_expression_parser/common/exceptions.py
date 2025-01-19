@@ -3,5 +3,6 @@ class InvalidCronFormatError(ValueError):
 
     pass
 
+
 class InvalidCyclicRangeError(ValueError):
     """Exception raised for invalid cylic ranges"""
