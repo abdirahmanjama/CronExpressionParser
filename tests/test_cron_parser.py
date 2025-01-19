@@ -12,7 +12,7 @@ def test_cron_expression_parser_valid_cron(yearly_cron_string):
         HOUR: 0,
         MONTH: 1,
         DAY_OF_MONTH: 1, 
-        DAY_OF_WEEK: [1, 2,3,4,5,6,7],
+        DAY_OF_WEEK: [1,2,3,4,5,6,7],
         COMMAND: 'test_command'
     }
 
