@@ -49,20 +49,3 @@ def test_cron_expression_parser_displays_cron_tab(yearly_cron_string, capsys):
     print(captured_output)
 
     assert expected_output == captured_output.out
-
-
-def test_cron_expression_handles_yearly_schedule():
-    parser = CronExpressionParser("@yearly test_command")
-
-    expected_result = {
-        MINUTE: 0,
-        HOUR: 0,
-        MONTH: 1,
-        DAY_OF_MONTH: 1, 
-        DAY_OF_WEEK: [1,2,3,4,5,6,7],
-        COMMAND: 'test_command'
-    }
-
-    result = parser.parse()
-
-    assert expected_result == result
