@@ -1,5 +1,5 @@
 import pytest
-from cron_parser.cron_field_expander import CronFieldExpander
+from cron_expression_parser.cron_field_expander import CronFieldExpander
 
 def test_wildcard_expansion():
     expander = CronFieldExpander(0, 59)

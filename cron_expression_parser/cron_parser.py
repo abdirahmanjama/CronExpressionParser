@@ -1,6 +1,6 @@
 from typing import Any, Union
-from cron_parser.common.exceptions import InvalidCronFormatError
-from cron_parser.common.constants import (
+from cron_expression_parser.common.exceptions import InvalidCronFormatError
+from cron_expression_parser.common.constants import (
     MAX_DAY_OF_MONTH,
     MAX_DAY_OF_WEEK,
     MAX_HOUR,
@@ -13,7 +13,7 @@ from cron_parser.common.constants import (
     DAY_OF_WEEK,
     COMMAND,
 )
-from cron_parser.cron_field_expander import CronFieldExpander
+from cron_expression_parser.cron_field_expander import CronFieldExpander
 
 
 class CronExpressionParser:

@@ -1,7 +1,7 @@
 import pytest
-from cron_parser.common.constants import COMMAND, DAY_OF_MONTH, DAY_OF_WEEK, MINUTE, HOUR, MONTH 
-from cron_parser.common.exceptions import InvalidCronFormatError
-from cron_parser.cron_parser import CronExpressionParser
+from cron_expression_parser.common.constants import COMMAND, DAY_OF_MONTH, DAY_OF_WEEK, MINUTE, HOUR, MONTH 
+from cron_expression_parser.common.exceptions import InvalidCronFormatError
+from cron_expression_parser.cron_parser import CronExpressionParser
 
 
 def test_cron_expression_parser_valid_cron(yearly_cron_string):

@@ -1,6 +1,6 @@
 import sys
-from cron_parser.cron_parser import CronExpressionParser
-from cron_parser.common.exceptions import InvalidCronFormatError
+from cron_expression_parser.cron_parser import CronExpressionParser
+from cron_expression_parser.common.exceptions import InvalidCronFormatError
 
 def main():
     if len(sys.argv) != 2:
