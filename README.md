@@ -82,9 +82,6 @@ To run tests here, you have two options:
     ./run_tests.sh
     ```
     >Note: You may need to provide executable permissions for the script. To do so, run: `chmod 777 run_tests.sh`
-bash
-Copy
-Edit
 
 ## How to parse your first cron string
 
