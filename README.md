@@ -62,6 +62,15 @@ python3 main.py "<cron_expression>"
 
 This will parse and expand the cron expression and display the expanded fields with insights into the execution times.
 
+## Testing
+
+This service currently tests core user flows such as: 
+
+- Parsing cron_string with wildcards, steps, ranges, lists and literals. 
+
+Please run tests by running `pytest test/`
+
+
 ## Examples
 
 Here’s an example of how to use the service:
