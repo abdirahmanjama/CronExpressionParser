@@ -68,12 +68,26 @@ This service currently tests core user flows such as:
 
 - Parsing cron_string with wildcards, steps, ranges, lists and literals. 
 
-Please run tests by running `pytest test/`
+### Running Tests
 
+To run tests here, you have two options:
 
-## Examples
+1. Using `pytest` by running the following in the project root directory:
 
-Here’s an example of how to use the service:
+    ```
+    pytest test/
+    ```
+2. Or using the provided helper shell script `run_tests.sh`, by running the following in the project root directory: 
+    ```
+    ./run_tests.sh
+    ```
+    >Note: You may need to provide executable permissions for the script. To do so, run: `chmod 777 run_tests.sh`
+bash
+Copy
+Edit
+
+## How to parse your first cron string
+
 
 If you want to parse and validate the cron expression `30 2 * * * backup.sh`, which runs at 2:30 AM every day, run the following command:
 
