@@ -1,6 +1,11 @@
 from typing import Any, Union
 from cron_parser.common.exceptions import InvalidCronFormatError
 from cron_parser.common.constants import (
+    MAX_DAY_OF_MONTH,
+    MAX_DAY_OF_WEEK,
+    MAX_HOUR,
+    MAX_MINUTE,
+    MAX_MONTH,
     MINUTE,
     HOUR,
     DAY_OF_MONTH,
@@ -52,11 +57,11 @@ class CronExpressionParser:
             )
 
         self.parsed_cron = {
-            MINUTE: self._expand_field(parts[0], 0, 59),
-            HOUR: self._expand_field(parts[1], 0, 23),
-            DAY_OF_MONTH: self._expand_field(parts[2], 1, 31),
-            MONTH: self._expand_field(parts[3], 1, 12),
-            DAY_OF_WEEK: self._expand_field(parts[4], 1, 7),
+            MINUTE: self._expand_field(parts[0], 0, MAX_MINUTE),
+            HOUR: self._expand_field(parts[1], 0, MAX_HOUR),
+            DAY_OF_MONTH: self._expand_field(parts[2], 1, MAX_DAY_OF_MONTH),
+            MONTH: self._expand_field(parts[3], 1, MAX_MONTH),
+            DAY_OF_WEEK: self._expand_field(parts[4], 1, MAX_DAY_OF_WEEK),
             COMMAND: parts[5],
         }
 
