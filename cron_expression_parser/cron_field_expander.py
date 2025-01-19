@@ -1,5 +1,8 @@
 
 
+from cron_expression_parser.common.exceptions import InvalidCyclicRangeError
+
+
 class CronFieldExpander:
 
     """
@@ -114,4 +117,7 @@ class CronFieldExpander:
             list[int]: A list of integers from the start to the stop of the range.
         """
         start, stop = map(int, field.split("-"))
+
+        if start > stop:
+            raise InvalidCyclicRangeError(f"Invalid cyclic range {start}-{stop}. Cyclic ranges are currently not supported.")
         return list(range(start, stop + 1))
