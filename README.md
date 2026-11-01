@@ -1,100 +1,59 @@
-# Cron Expression Parser Service
+# Cron expression parser
 
-This service parses cron strings and expands each field to provide customers with insights into when a task or job will run.
+A take-home task that comes up at a lot of UK companies, worked through end to end. This is my solution, and the one referenced in the **Big Tech Interview Prep Guide** from [The Software Club](https://skool.com/softwareclub). Do the task yourself first, under time, then compare.
 
-## Prerequisites
+## The task
 
-In order to run this locally, please ensure the following are installed on your system:
+Write a command-line program that takes one argument: a standard cron line with five time fields (minute, hour, day of month, month, day of week) followed by a command. Expand each field to show the times at which it will run, and print a table with the field name in a 14-character left-aligned column followed by the values.
 
-1. **Python3**: Confirm that Python 3 is installed by running the following:
+```
+$ python3 main.py "*/15 0 1,15 * 1-5 /usr/bin/find"
+minute        0 15 30 45
+hour          0
+day of month  1 15
+month         1 2 3 4 5 6 7 8 9 10 11 12
+day of week   1 2 3 4 5
+command       /usr/bin/find
+```
 
-    ```
-    python3 --version
-    ```
+Special strings like `@yearly` are out of scope.
 
-    If Python 3 is not installed, you can download it from [python.org](https://www.python.org).
+## Run it
 
-2. **pip**: Confirm that Python's package manager is installed by running:
+Python 3.10 or newer, no dependencies.
 
-    ```
-    pip3 --version
-    ```
+```
+python3 main.py "<cron string>"
+```
 
-## Set Up a Virtual Environment (Recommended)
-
-Setting up a virtual environment allows you to manage dependencies in an isolated environment, enabling you to run different services independently. Follow the steps below:
-
-> You can technically ignore this, and install dependencies globally, but this may intefere with other things you're working on. Using virtual environment ensures your dependencies are isolated.
-
-1. **Create your virtual environment**:
-
-    ```
-    python3 -m venv env
-    ```
-
-2. **Activate your virtual environment**:
-
-    - **MacOS/Linux**:
-      ```
-      source env/bin/activate
-      ```
-
-    - **Windows**:
-      ```
-      .\env\Scripts\activate
-      ```
-
-## Install Dependencies
-
-With the virtual environment set up and activated, you can now install all the required dependencies:
+## Test it
 
 ```
 pip install -r requirements.txt
+pytest
 ```
 
-## Run the Service
+`./run_tests.sh` runs the same suite with a coverage report.
 
-To run the service, navigate to the root directory of the project and use the following command:
-
-```
-python3 main.py "<cron_expression>"
-```
-
-This will parse and expand the cron expression and display the expanded fields with insights into the execution times.
-
-## Testing
-
-This service currently tests core user flows such as: 
-
-- Parsing cron_string with wildcards, steps, ranges, lists and literals. 
-
-### Running Tests
-
-To run tests here, you have two options:
-
-1. Using `pytest` by running the following in the project root directory:
-
-    ```
-    pytest test/
-    ```
-2. Or using the provided helper shell script `run_tests.sh`, by running the following in the project root directory: 
-    ```
-    ./run_tests.sh
-    ```
-    >Note: You may need to provide executable permissions for the script. To do so, run: `chmod 777 run_tests.sh`
-
-## How to parse your first cron string
-
-
-If you want to parse and validate the cron expression `30 2 * * * backup.sh`, which runs at 2:30 AM every day, run the following command:
+## How it's put together
 
 ```
-python3 main.py "30 2 * * * backup.sh"
+main.py                                   CLI: argument handling and exit codes
+cron_expression_parser/
+  cron_parser.py                          splits the line into fields and a command
+  cron_field_expander.py                  expands one field ("*/15", "1-5,7") into values
+  common/constants.py                     field names and ranges
+  common/exceptions.py                    one error type per thing that can go wrong
+tests/                                    one test per input shape, plus the error cases
+docs/edge_cases.md                        what the spec leaves open and what this does about it
 ```
 
-This will display the expanded cron expression with all the possible execution times.
+## Decisions the spec leaves to you
 
----
+1. **Out-of-range values** (minute `60`, month `13`) are rejected with a clear message and a non-zero exit code, not silently accepted.
+2. **A single value with a step** (`5/15`) means "from 5 to the end of the field", which is how most cron implementations read it.
+3. **Backward ranges** (`5-2`) are rejected. Some crons treat them as wrapping around; this one does not, and says so.
+4. **Day of week is 1–7.** The spec doesn't say; `docs/edge_cases.md` discusses switching to 0–6.
+5. **Extra whitespace** between fields is tolerated, and the command keeps its own internal spaces.
 
-**Note**: This is a local script and is not deployed anywhere. It is designed to run directly from the command line in your local development environment.
-
+Noticing that these are missing from the spec, choosing, and writing the choice down is a large part of what a reviewer is looking for.

@@ -3,7 +3,7 @@ import pytest
 
 @pytest.fixture
 def yearly_cron_string():
-    return f"0 0 1 1 * test_command"
+    return "0 0 1 1 * test_command"
 
 
 @pytest.fixture

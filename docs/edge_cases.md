@@ -1,6 +1,8 @@
 # Edge Cases considered for the Cron Expression Parser Service
 
-Cron Expressions present a lot of interesting problems to account for and consider. This document covers edge cases that we should consider in future such as date validation, cyclic or backward ranges and leap years.
+Cron Expressions present a lot of interesting problems to account for and consider. This document covers edge cases: the ones this implementation handles, and the ones left for a future version such as date validation and leap years.
+
+**Handled now:** out-of-range values, non-numeric values, backward ranges, mixed lists like `1-3,7,*/20`, steps on ranges and on single values, extra whitespace between fields, and commands containing spaces. Each has a test in `tests/`.
 
 ### Date and Month validation
 

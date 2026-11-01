@@ -1,3 +1,19 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "cron-expression-parser"
+version = "0.2.0"
+description = "Expand a five-field cron expression into the times it will run"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "black", "flake8"]
+
+[tool.setuptools.packages.find]
+include = ["cron_expression_parser*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

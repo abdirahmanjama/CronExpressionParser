@@ -1,24 +1,19 @@
 import sys
+
+from cron_expression_parser.common.exceptions import CronError
 from cron_expression_parser.cron_parser import CronExpressionParser
-from cron_expression_parser.common.exceptions import InvalidCronFormatError
 
 
-def main():
+def main() -> None:
     if len(sys.argv) != 2:
-        print('Usage: python3 main.py "<cron_string>"')
+        print('Usage: python3 main.py "<cron_string>"', file=sys.stderr)
         sys.exit(1)
-
-    cron_string = sys.argv[1]
 
     try:
-        parser = CronExpressionParser(cron_string)
-        parsed_cron = parser.parse()
-        parser.display_parsed_cron(parsed_cron)
-    except InvalidCronFormatError as e:
-        print(f"Error: {e}")
-        sys.exit(1)
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        parser = CronExpressionParser(sys.argv[1])
+        parser.display_parsed_cron(parser.parse())
+    except CronError as error:
+        print(f"Error: {error}", file=sys.stderr)
         sys.exit(1)
 
 
